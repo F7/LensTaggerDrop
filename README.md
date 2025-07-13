@@ -1,9 +1,9 @@
 # LensTaggerDrop
 
-[![Platform: macOS](https://img.shields.io/badge/Platform-macOS-lightgrey.svg)]
-[![Built with: Automator](https://img.shields.io/badge/Built%20with-Automator-blue.svg)]
-[![Uses: ExifTool](https://img.shields.io/badge/Uses-ExifTool-orange.svg)]
-[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+![Platform: macOS](https://img.shields.io/badge/Platform-macOS-lightgrey.svg)
+![Built with: Automator](https://img.shields.io/badge/Built%20with-Automator-blue.svg)
+![Uses: ExifTool](https://img.shields.io/badge/Uses-ExifTool-orange.svg)
+![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)
 
 ## English　(日本語は下にあります)
 A macOS utility to embed manual lens metadata into RAW files using ExifTool.
