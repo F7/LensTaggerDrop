@@ -92,8 +92,9 @@ The following EXIF fields are written using ExifTool, even for manual lenses wit
 
 ### Supported Lenses
 Currently supported lenses (more will be added as needed):
-- Voigtländer Nokton Classic 40mm ƒ/1.4
 - Leitz Elmar 35mm ƒ/3.5
+- Voigtländer Nokton Classic 40mm ƒ/1.4
+- Voigtländer COLOR-SKOPAR 35mm F3.5 Aspherical
 
 
 ## Notes & Warnings
@@ -175,9 +176,10 @@ chmod +x LensName.command
 - `MaxApertureValue`: 開放F値（MaxApertureValue）
 
 ### 対応レンズ
-対応しているレンズは、現時点では以下の2つのみです。今後、自分が使用しているオールドレンズを追加していきます。
-- Voigtländer Nokton Classic 40mm ƒ/1.4
+対応しているレンズは、現時点では以下のもののみです。今後、自分が使用しているオールドレンズを追加していきます。
 - Leitz Elmar 35mm ƒ/3.5
+- Voigtländer Nokton Classic 40mm ƒ/1.4
+- Voigtländer COLOR-SKOPAR 35mm F3.5 Aspherical
 
 
 ## 補足説明と注意事項
