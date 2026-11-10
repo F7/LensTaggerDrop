@@ -6,7 +6,7 @@
 ![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)
 
 ## English　(日本語は下にあります)
-A macOS utility to embed manual lens metadata into RAW files using ExifTool.
+A macOS utility to embed manual lens metadata into RAW and JPEG files using ExifTool.
 
 ### Background
 I often use multiple vintage lenses for photography, but RAW files do not contain information about them. Once files get mixed up, it becomes difficult to know exactly which lens was used for each image. To solve this, I’ve been using [Lens Tagger](https://www.lenstagger.com/), a Lightroom Classic plugin, to write lens metadata into RAW files.
@@ -20,8 +20,8 @@ However, every time I buy a new lens, I have to manually configure the plugin, r
 1. `LensName`.app – A simple macOS application that embeds vintage lens metadata into RAW files.
 2. `LensName`.command – A shell script used to generate the above `.app`. Can also be used directly in Terminal.
 
-### Supported RAW File Formats
-The following RAW formats are supported:
+### Supported File Formats
+The following RAW formats and JPEG extensions are supported:
 
 | Manufacturer | Extension         | Supported |
 |--------------|------------------|-----------|
@@ -32,6 +32,7 @@ The following RAW formats are supported:
 | Panasonic    | `.RW2`           | ✅         |
 | Olympus      | `.ORF`           | ✅         |
 | Leica, Ricoh | `.DNG`           | ✅         |
+| JPEG         | `.JPG`, `.JPEG`  | ✅         |
 
 
 ## Requirements & Installation
@@ -58,8 +59,8 @@ brew install exiftool
 
 ### Option 1: Using `LensName`.app
 1. Place the `.app` file corresponding to the lens you used in a convenient location.
-2. Drag your RAW files or folders onto the `.app` file.
-3. You can drag multiple files, a single folder, or multiple folders at once. The app will recursively scan all contained files and embed lens metadata into any supported RAW files.
+2. Drag your RAW or JPEG files or folders onto the `.app` file.
+3. You can drag multiple files, a single folder, or multiple folders at once. The app will recursively scan all contained files and embed lens metadata into any supported RAW or JPEG files.
 4. Once processing is complete, an alert will display the results, including the number of files scanned, processed, and skipped.
 
 ### Option 2: Using `LensName`.command
@@ -99,8 +100,22 @@ Currently supported lenses (more will be added as needed):
 - Voigtländer COLOR-SKOPAR 35mm F3.5 Aspherical
 
 
+
+### Updating the existing Automator apps / 既存Automatorアプリの更新
+The `.app` bundles contain an embedded copy of their scripts in `Contents/document.wflow`; editing the `.command` files alone does not update drag-and-drop behavior. The source `document.wflow` files in this update also include JPEG support. Because changing an app bundle invalidates its existing code signature, re-sign each edited app on macOS before testing:
+
+```bash
+for app in app/*.app; do
+  codesign --force --deep --sign - "$app"
+done
+```
+
+Alternatively, open each app in Automator, edit the embedded Run Shell Script action, and save it again. Test with copied JPEGs before using originals.
+
+`.app`の中の`Contents/document.wflow`にもシェルスクリプトが埋め込まれています。この更新ではそちらもJPEG対応済みです。既存の署名は変更により無効となるため、Macで上記の`codesign`を実行して再署名するか、Automatorでアプリを開いて保存し直してください。最初はJPEGのコピーを使用して確認してください。
+
 ## Notes & Warnings
-- This tool only modifies EXIF metadata. It does **not** affect image data such as quality or colors.
+- This tool writes metadata using ExifTool. JPEG image pixels are not re-encoded; colors and picture content should remain unchanged. Test with copies first, especially for camera-specific MakerNotes.
 - Once lens data is written to a file, it cannot be undone. Make backups if you are concerned.
 - Files can be overwritten multiple times. If you drag a file onto a different lens app, its EXIF metadata will be updated accordingly.
 - To support a new lens, simply duplicate an existing `.command` file, modify the lens-specific metadata values near the top, and export a new `.app` using Automator.
@@ -109,7 +124,7 @@ Currently supported lenses (more will be added as needed):
 
 
 ## 日本語
-[ExifTool](https://exiftool.org/)を使って、マニュアルレンズのメタデータをRAWファイルに埋め込むためのmacOS用ユーティリティです。
+[ExifTool](https://exiftool.org/)を使って、マニュアルレンズのメタデータをRAW・JPEGファイルに埋め込むためのmacOS用ユーティリティです。
 
 ## 背景
 普段オールドレンズをいくつか使い分けて写真を撮影していますが、RAWデータにはオールドレンズの情報は書き込まれません。知らないうちにファイルが混ざってしまうと、どのレンズで撮ったのかを正確に把握することが困難になりがちです。それを解決するために、RAWデータにレンズ情報を書き込むために、普段は[Lens Tagger](https://www.lenstagger.com/)というLightroom Classicのプラグインを使ってきました。
@@ -122,8 +137,8 @@ Currently supported lenses (more will be added as needed):
 2. `LensName`.command: 1を作成するためのシェルスクリプトコマンド。ターミナルでシェルスクリプトとして使用することも可能です。
 
 
-### 対応RAWファイル形式
-以下のRAWファイル形式に対応しています。
+### 対応ファイル形式
+以下のRAWファイル形式とJPEGに対応しています。
 | カメラメーカー      | 拡張子            | 対応状況 |
 | ------------ | -------------- | ---- |
 | Canon        | `.CR2`, `.CR3` | ✅    |
@@ -133,6 +148,7 @@ Currently supported lenses (more will be added as needed):
 | Panasonic    | `.RW2`         | ✅    |
 | Olympus      | `.ORF`         | ✅    |
 | Leica, Ricoh | `.DNG`         | ✅    |
+| JPEG         | `.JPG`, `.JPEG` | ✅    |
 
 
 ## 動作環境とインストール
@@ -151,8 +167,8 @@ Currently supported lenses (more will be added as needed):
 ## 使い方（How it works）
 ### 利用方法1: `LensName`.app
 1. 対象となるレンズの.appファイルを好きな場所に置きます。
-2. 撮影した写真のRAWファイルを.appファイルにドラッグ・アンド・ドロップすると処理が開始されます。
-3. 複数ファイル同時、1つのフォルダ、複数のフォルダのドラッグアンドドロップに対応しています。ドロップすると、その中に入っているファイルすべてをスキャンし、該当するRAWファイルにレンズ情報を書き込みます。
+2. 撮影した写真のRAWまたはJPEGファイルを.appファイルにドラッグ・アンド・ドロップすると処理が開始されます。
+3. 複数ファイル同時、1つのフォルダ、複数のフォルダのドラッグアンドドロップに対応しています。ドロップすると、その中に入っているファイルすべてをスキャンし、該当するRAW・JPEGファイルにレンズ情報を書き込みます。
 4. 処理が完了したら、AlertViewに結果が表示されます。（ドラッグ・アンド・ドロップした各フォルダ内のファイル数、総ファイル数、処理済みのファイル数等）
 
 ### 利用方法2: `LensName`.command
@@ -187,7 +203,7 @@ chmod +x LensName.command
 
 
 ## 補足説明と注意事項
-- このツールはExifメタデータのみを編集します。画像データそのもの（画質や色など）には一切影響しません。
+- ExifToolを使いメタデータを書き込みます。JPEG画像の画素データは再圧縮しません。カメラ固有のMakerNotes等については、元ファイルのコピーで先に動作確認してください。
 - ファイルにレンズ情報を書き込んだら、元には戻せないので、心配であればバックアップを取ったうえで作業してください。
 - 何度でも上書き可能です。他のレンズファイルにRAWファイルをドラッグ・アンド・ドロップすると、そのレンズファイルの情報で更新されます。
 - 他のレンズに対応させたい場合は .command ファイルを複製して、上の部分にあるレンズの設定値を記載するブロックを直接編集してください。それをAutomatorアプリを使用して.appとして保存することで、新しいレンズ用のユーティリティが作成できます。

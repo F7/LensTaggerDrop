@@ -82,7 +82,7 @@ all_files=()
 dir_names=()
 dir_counts=()
 
-valid_exts="dng arw raf cr2 cr3 nef orf rw2"
+valid_exts="dng arw raf cr2 cr3 nef orf rw2 jpg jpeg"
 
 #########################
 # Collect files
