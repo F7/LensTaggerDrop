@@ -98,6 +98,7 @@ Currently supported lenses (more will be added as needed):
 - Leica Summicron-M 35mm ƒ/2 (7 Elements)
 - Voigtländer Nokton Classic 40mm ƒ/1.4
 - Voigtländer COLOR-SKOPAR 35mm F3.5 Aspherical
+- Leica Summilux-M 1:1.4/50 ASPH. (50mm f/1.4)
 
 
 
@@ -200,6 +201,7 @@ chmod +x LensName.command
 - Leica Summicron-M 35mm ƒ/2 (7 Elements)
 - Voigtländer Nokton Classic 40mm ƒ/1.4
 - Voigtländer COLOR-SKOPAR 35mm F3.5 Aspherical
+- Leica Summilux-M 1:1.4/50 ASPH. (50mm f/1.4)
 
 
 ## 補足説明と注意事項
@@ -207,3 +209,4 @@ chmod +x LensName.command
 - ファイルにレンズ情報を書き込んだら、元には戻せないので、心配であればバックアップを取ったうえで作業してください。
 - 何度でも上書き可能です。他のレンズファイルにRAWファイルをドラッグ・アンド・ドロップすると、そのレンズファイルの情報で更新されます。
 - 他のレンズに対応させたい場合は .command ファイルを複製して、上の部分にあるレンズの設定値を記載するブロックを直接編集してください。それをAutomatorアプリを使用して.appとして保存することで、新しいレンズ用のユーティリティが作成できます。
+
